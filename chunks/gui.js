@@ -189,40 +189,27 @@ var handleTelemetryModalOptOut = function handleTelemetryModalOptOut() {
       // note that a typo like "falsy" will be treated as true
       simulateScratchDesktop = scratchDesktopMatches[1];
     }
-  } // jaafreitas: This code shouldn't be merged into production branch
-  // Include the (URI encoded) URL to a project file within the URL like
-  // ?project_file=https://example.com/epic-project.sb3
-  // Source code from https://gist.github.com/SheepTester/57b3daa3e227ad3fa085a2501fd331db/revisions?diff=unified
-
-
-  var projectFileMatches = window.location.href.match(/[?&]project_file=([^&]*)&?/);
-  var projectFile = projectFileMatches ? decodeURIComponent(projectFileMatches[1]) : null;
-
-  var onVmInit = function onVmInit(vm) {
-    if (projectFile) {
-      fetch(projectFile).then(function (response) {
-        return response.arrayBuffer();
-      }).then(function (arrayBuffer) {
-        vm.loadProject(arrayBuffer);
-      });
-    }
-  };
+  }
 
   if (false) {}
 
   react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( // important: this is checking whether `simulateScratchDesktop` is truthy, not just defined!
-  // jaafreitas: This code shouldn't be merged into production branch
-  // simulateScratchDesktop ?
-  true ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(WrappedGui, {
+  simulateScratchDesktop ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(WrappedGui, {
     canEditTitle: true,
-    isScratchDesktop: true // showTelemetryModal
-    ,
-    canSave: false // onTelemetryModalCancel={handleTelemetryModalCancel}
-    // onTelemetryModalOptIn={handleTelemetryModalOptIn}
-    // onTelemetryModalOptOut={handleTelemetryModalOptOut}
-    ,
-    onVmInit: onVmInit
-  }) : undefined, appTarget);
+    isScratchDesktop: true,
+    showTelemetryModal: true,
+    canSave: false,
+    onTelemetryModalCancel: handleTelemetryModalCancel,
+    onTelemetryModalOptIn: handleTelemetryModalOptIn,
+    onTelemetryModalOptOut: handleTelemetryModalOptOut
+  }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(WrappedGui, {
+    canEditTitle: true,
+    backpackVisible: true,
+    showComingSoon: true,
+    backpackHost: backpackHost,
+    canSave: false,
+    onClickLogo: onClickLogo
+  }), appTarget);
 });
 
 /***/ }),
